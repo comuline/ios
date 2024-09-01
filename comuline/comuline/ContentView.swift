@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = StationListViewModel()
     @State private var searchText = ""
     
     var body: some View {
@@ -37,10 +38,28 @@ struct ContentView: View {
 //                            Destination(name: "Bekasi", via: nil, eta: nil)
                         ])
                     }
+                    Button(action: {
+                                // Action to perform when button is tapped
+                                print("Add another station")
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("Tambah stasiun lain")
+                                        .font(.system(size: 17))
+                                }
+//                                .frame(maxWidth: .infinity)
+//                                .padding()
+//                                .background(Color(white: 0.2))
+                                .foregroundColor(.black)
+                                .cornerRadius(8)
+                            }
+                            .padding()
+//                            .background(Color.black)
                 }
             }
             .navigationBarHidden(true)
         }
+        
     }
 }
 
@@ -58,6 +77,29 @@ struct SearchBar: View {
         .padding(.horizontal)
     }
 }
+
+struct AddStation: View {
+    var body: some View {
+        Button(action: {
+            // Action to perform when button is tapped
+            print("Add another station")
+        }) {
+            HStack {
+                Image(systemName: "plus")
+                Text("Tambah stasiun lain")
+                    .font(.system(size: 17))
+            }
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color(white: 0.2))
+            .foregroundColor(.white)
+            .cornerRadius(8)
+        }
+        .padding()
+        .background(Color.white)
+    }
+}
+
 
 struct StationView: View {
     let name: String
@@ -122,6 +164,7 @@ struct DestinationView: View {
     }
 }
 
+
 struct Destination {
     let name: String
     let via: String?
@@ -138,18 +181,71 @@ struct ContentView_Previews: PreviewProvider {
 
 //import SwiftUI
 //
-//struct ContentView: View {
-//    var body: some View {
-//        VStack {
-//            Image(systemName: "globe")
-//                .imageScale(.large)
-//                .foregroundStyle(.tint)
-//            Text("Hello, world!")
+//// Model
+//struct TodoItem: Identifiable {
+//    let id = UUID()
+//    var title: String
+//    var isCompleted: Bool
+//}
+//
+//// ViewModel
+//class TodoListViewModel: ObservableObject {
+//    @Published var items: [TodoItem] = []
+//    
+//    func addItem(title: String) {
+//        let newItem = TodoItem(title: title, isCompleted: false)
+//        items.append(newItem)
+//    }
+//    
+//    func toggleCompletion(for item: TodoItem) {
+//        if let index = items.firstIndex(where: { $0.id == item.id }) {
+//            items[index].isCompleted.toggle()
 //        }
-//        .padding()
 //    }
 //}
 //
-//#Preview {
-//    ContentView()
+//// View
+//struct ContentView: View {
+//    @StateObject private var viewModel = TodoListViewModel()
+//    @State private var newItemTitle = ""
+//    
+//    var body: some View {
+//        NavigationView {
+//            List {
+//                ForEach(viewModel.items) { item in
+//                    HStack {
+//                        Text(item.title)
+//                        Spacer()
+//                        if item.isCompleted {
+//                            Image(systemName: "checkmark")
+//                        }
+//                    }
+//                    .onTapGesture {
+//                        viewModel.toggleCompletion(for: item)
+//                    }
+//                }
+//                
+//                HStack {
+//                    TextField("New item", text: $newItemTitle)
+//                    Button(action: {
+//                        if !newItemTitle.isEmpty {
+//                            viewModel.addItem(title: newItemTitle)
+//                            newItemTitle = ""
+//                        }
+//                    }) {
+//                        Image(systemName: "plus.circle.fill")
+//                    }
+//                }
+//            }
+//            .navigationTitle("ToDo List")
+//        }
+//    }
 //}
+//
+//// Preview
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
+
