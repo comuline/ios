@@ -29,8 +29,7 @@ struct ContentView: View {
 //                            Destination(name: "Manggarai", via: "Via Manggarai", eta: "10 Menit"),
 //                            Destination(name: "Cikarang", via: "Via Manggarai", eta: "10 Menit")
                         ])
-                        
-                        StationView(name: "Duri", destinations: [])
+//                        StationView(name: "Duri", destinations: [])
                         
                         StationView(name: "Tanah Abang", destinations: [
                             Destination(name: "Angke", via: "Via Manggarai", platform: "Peron 2", eta: nil),
@@ -38,30 +37,36 @@ struct ContentView: View {
 //                            Destination(name: "Bekasi", via: nil, eta: nil)
                         ])
                     }
-                    Button(action: {
-                                // Action to perform when button is tapped
-                                print("Add another station")
-                            }) {
+                    NavigationView {
+                        VStack {
+                            NavigationLink(destination: StationListView()) {
                                 HStack {
                                     Image(systemName: "plus")
                                     Text("Tambah stasiun lain")
                                         .font(.system(size: 17))
+                                        }
+                                .frame(maxWidth: .infinity)
+
+                                        .padding()
+                                        .background(Color(white: 0.20))
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                    }
                                 }
-//                                .frame(maxWidth: .infinity)
-//                                .padding()
-//                                .background(Color(white: 0.2))
-                                .foregroundColor(.black)
-                                .cornerRadius(8)
                             }
-                            .padding()
-//                            .background(Color.black)
+                        }
+                    }
                 }
             }
-            .navigationBarHidden(true)
         }
-        
-    }
-}
+
+
+//struct AddStationView: View {
+//    var body: some View {
+//        Text("Add New Station")
+//            .navigationTitle("Add Station")
+//    }
+//}
 
 struct SearchBar: View {
     @Binding var text: String
@@ -69,7 +74,7 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
-            TextField("Cari stasiun krl...", text: $text)
+            TextField("Cari stasiun keberangkatan", text: $text)
         }
         .padding(8)
         .background(Color(.systemGray6))
